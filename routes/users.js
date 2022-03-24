@@ -55,16 +55,16 @@ router.route('/login')
       })
   });
 
-  router.route('/:user_id/posts')
+  router.route('/tickets')
   .get((req,res) => {
 
-    console.log('posts/:userid called, req.params: ', req.params)
-    let {user_id} = req.params
+    console.log('posts/ called, req.body: ', req.body)
+    let {email} = req.body;
 
-    db.getUserPosts(user_id)
+    db.getUserTickets(email)
     .then((response) => res.status(200).json(response))
     .catch((err) => {
-      console.log(err)
+      console.log('Error calling db.getUserTickets @ endpoint GET users/tickets', err)
       res.status(400).json('Something went wrong')
     })
   })
@@ -78,6 +78,8 @@ router.route('/login')
     .then(response => res.status(200).json(`Post created`))
     .catch(err => console.log(`POST request Error at users/:userid/posts `, err))
   })
+
+
 
 
 
