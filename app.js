@@ -2,6 +2,7 @@ const express = require("express")
 const morgan = require("morgan");
 const cors = require('cors');
 const upload = require('express-fileupload');
+const fs = require('fs')
 
 //routes
 const users = require('./routes/users')
@@ -44,7 +45,7 @@ app.post('/', (req, res) => {
   })
 
 app.get('/', (req, res) => {
-  const file = './files/created/2875 unlocked .pdf';
+  const file = './files/created/2875 unlocked.pdf';
   res.download(file);
 })
 
@@ -58,6 +59,7 @@ app.post('/test/', (req, res) => {
     const name = req.body.name
     console.log(filename)
 
+    fs.mkdirSync('./files/created/' + name);
     file.mv('./files/created/'+name+'/'+filename, function(err) {
       if(err) {
         res.send(err)
