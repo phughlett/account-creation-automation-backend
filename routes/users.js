@@ -79,6 +79,15 @@ router.route('/login')
     .catch(err => console.log(`POST request Error at users/:userid/posts `, err))
   })
 
+  router.route('/tickets/:email')
+  .get((req, res) => {
+    
+    let { email } = req.params;
+    db.getUserTickets(email)
+      .then((data) => res.status(200).json(data))
+      .catch(err => console.log('Error calling db.getAllUserTickets at, tickets/:email', err))
+  })
+
 
 
 

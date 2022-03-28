@@ -1,8 +1,10 @@
 const express = require("express")
-const morgan = require("morgan");
-const cors = require('cors');
-const upload = require('express-fileupload');
+const morgan = require("morgan")
+const cors = require('cors')
+const upload = require('express-fileupload')
 const fs = require('fs')
+// const AdmZip = require('adm-zip')
+const zip = require('express-zip')
 
 //routes
 const users = require('./routes/users')
@@ -45,21 +47,26 @@ app.post('/', (req, res) => {
   })
 
 app.get('/', (req, res) => {
-  const file = './files/created/2875 unlocked.pdf';
+  const file = './files/templates/2875.pdf';
   res.download(file);
 })
 
 
 app.post('/test/', (req, res) => {
-  console.log(req.files)
-  if(req.files) {
+  console.log('Req.Files: ',req.files)
+  // if(req.files.length > 1) {
     console.log(req.files)
     const file = req.files.file
     const filename = file.name
-    // const name = req.body.name
-    let name = 'test'
+    let name = req.body.name
+    // let name = 'test'
     console.log(filename)
 
+    if(fs.existsSync('./files/created/'+name+'/')){
+      console.log(name);
+      name = name + 'test';
+      console.log(name);
+    }
     fs.mkdirSync('./files/created/' + name);
     file.mv('./files/created/'+name+'/'+filename, function(err) {
       if(err) {
@@ -68,12 +75,23 @@ app.post('/test/', (req, res) => {
         res.send("File uploaded")
       }
     })
-  }
+  // }
 })
 
-app.get('/test/', (req, res) => {
-const file = './files/created/' + req.body.name + '/' + req.body.filename;
-res.download(file);
+app.get('/test/:id', (req, res) => {
+  let userName = req.params;
+  console.log(userName)
+  const path = __dirname + '/files/inprogress/' + userName.id + '/';
+
+  let fileArray = [];
+
+  fs.readdirSync(path).forEach(file => {
+    fileArray.push({path, name: file})
+  })
+  for(let i = 0; i < fileArray.length;i++)
+  {
+  res.download(fileArray[i].path, fileArray[i].name)
+  }
 });
 
 

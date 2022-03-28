@@ -40,12 +40,18 @@ module.exports = {
     return knex('tickets').select().where(ticket_hash);
   },
 
-  createTicket: (ticket_hash, firstname, lastname, email, systemid) => {
+  getTicketbyID: (id) => {
+    console.log('id at controller',id)
+    return knex('tickets').select().where(id);
+  },
+
+
+  createTicket: (ticket_hash, firstname, lastname, email, systemid, form_filepath) => {
     let supervisor = false;
     let iao = false;
     let sec_man = false;
     let sys_admin = false;
-    return knex('tickets').insert({ ticket_hash, firstname, lastname, email, systemid, supervisor, iao, sec_man, sys_admin });
+    return knex('tickets').insert({ ticket_hash, firstname, lastname, email, systemid, supervisor, iao, sec_man, sys_admin, form_filepath });
   },
 
   updateTicketStatus: (id, { supervisor, iao, sec_man, sys_admin }) => {
