@@ -56,7 +56,8 @@ app.post('/test/', (req, res) => {
     console.log(req.files)
     const file = req.files.file
     const filename = file.name
-    const name = req.body.name
+    // const name = req.body.name
+    let name = 'test'
     console.log(filename)
 
     fs.mkdirSync('./files/created/' + name);
