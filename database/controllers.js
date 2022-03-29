@@ -4,29 +4,29 @@ module.exports = {
 
   //User Controller Calls
   createUser: (firstname, lastname, username, hashed_password) => {
-    console.log('createUser in controller called, first_name: ', firstname);
-    console.log('createUser in controller called, last_name: ', lastname);
-    console.log('createUser in controller called, username: ', username);
-    console.log('createUser in controller called, hashpass: ', hashed_password);
+    // console.log('createUser in controller called, first_name: ', firstname);
+    // console.log('createUser in controller called, last_name: ', lastname);
+    // console.log('createUser in controller called, username: ', username);
+    // console.log('createUser in controller called, hashpass: ', hashed_password);
 
     return knex('users').insert({ first_name, last_name, username, hashed_password })
   },
 
   getUserHashPass: (username) => {
-    console.log('getUserHashPass called, username: ', username)
+    // console.log('getUserHashPass called, username: ', username)
 
     return knex('users').select('hashed_password').where({ username });
   },
 
   getUserInfo: (username) => {
-    console.log('getUserInfo called, username: ', username)
+    // console.log('getUserInfo called, username: ', username)
 
     return knex('users').select('id', 'firstname', 'lastname', 'username').where({ username });
 
   },
 
   getUserTickets: (email) => {
-    console.log('Email at db.getUserTickets', { email })
+    // console.log('Email at db.getUserTickets', { email })
     return knex('tickets').select().where({ email });
   },
 
@@ -41,32 +41,28 @@ module.exports = {
   },
 
   getTicketbyID: (id) => {
-    console.log('id at controller',id)
+    // console.log('id at controller',id)
     return knex('tickets').select().where(id);
   },
 
+  findTicket: (firstname, lastname, email, systemid, formname) => {
+    return knex('tickets').select().where({firstname, lastname, email, systemid, formname});
+  },
 
-  createTicket: (ticket_hash, firstname, lastname, email, systemid, form_filepath) => {
+
+  createTicket: (ticket_hash, firstname, lastname, email, systemid, formname, form_filepath) => {
     let supervisor = false;
     let iao = false;
     let sec_man = false;
     let sys_admin = false;
-    return knex('tickets').insert({ ticket_hash, firstname, lastname, email, systemid, supervisor, iao, sec_man, sys_admin, form_filepath });
+    return knex('tickets').insert({ ticket_hash, firstname, lastname, email, systemid, supervisor, iao, sec_man, sys_admin, formname, form_filepath });
   },
 
-  updateTicketStatus: (id, { supervisor, iao, sec_man, sys_admin }) => {
-    if (supervisor) {
-      return knex('tickets').where({ id }).update({ supervisor });
-    }
-    if (iao) {
-      return knex('tickets').where({ id }).update({ iao });
-    }
-    if (sec_man) {
-      return knex('tickets').where({ id }).update({ sec_man });
-    }
-    if (sys_admin) {
-      return knex('tickets').where({ id }).update({ sys_admin });
-    }
+  updateTicketStatus: (id, supervisor, iao, sec_man, sys_admin) => {
+
+
+
+      return knex('tickets').where({id}).update({ supervisor, iao, sec_man, sys_admin });
   }
 
 }

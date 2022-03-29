@@ -58,7 +58,7 @@ router.route('/login')
   router.route('/tickets')
   .get((req,res) => {
 
-    console.log('posts/ called, req.body: ', req.body)
+    // console.log('posts/ called, req.body: ', req.body)
     let {email} = req.body;
 
     db.getUserTickets(email)
@@ -71,7 +71,7 @@ router.route('/login')
 
   .post((req,res) => {
     let {user_id} = req.params
-    console.log('req.body', req.body)
+    // console.log('req.body', req.body)
     let{ title, content} = req.body;
     let insertObj = {user_id, title, content};
     db.addPost(insertObj)
