@@ -10,6 +10,7 @@ const zip = require('express-zip')
 const users = require('./routes/users')
 const tickets = require('./routes/tickets')
 const uploads = require('./routes/uploads')
+const systems = require('./routes/systems')
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(morgan("tiny"))
 app.use("/users", users)
 app.use("/tickets", tickets)
 app.use("/uploads", uploads)
+app.use("/systems", systems)
 
 
 

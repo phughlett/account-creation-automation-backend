@@ -54,15 +54,20 @@ module.exports = {
     let supervisor = false;
     let iao = false;
     let sec_man = false;
-    let sys_admin = false;
-    return knex('tickets').insert({ ticket_hash, firstname, lastname, email, systemid, supervisor, iao, sec_man, sys_admin, formname, form_filepath });
+    let info_owner = false;
+    return knex('tickets').insert({ ticket_hash, firstname, lastname, email, systemid, supervisor, iao, sec_man, info_owner, formname, form_filepath });
   },
 
-  updateTicketStatus: (id, supervisor, iao, sec_man, sys_admin) => {
+  updateTicketStatus: (id, supervisor, iao, sec_man, info_owner) => {
+      return knex('tickets').where({id}).update({ supervisor, iao, sec_man, info_owner });
+  },
 
+  getAllSystem: () => {
+    return knex('systems').select();
+  },
 
-
-      return knex('tickets').where({id}).update({ supervisor, iao, sec_man, sys_admin });
+  getSystem: (id) => {
+    return knex('systems').select().where({ id });
   }
 
 }

@@ -13,7 +13,7 @@
       table.boolean("supervisor").notNullable();
       table.boolean("iao").notNullable();
       table.boolean("sec_man").notNullable();
-      table.boolean("sys_admin").notNullable();
+      table.boolean("info_owner").notNullable();
       table.string("formname").notNullable();
       table.string("form_filepath").notNullable();
     });

@@ -16,18 +16,18 @@ router.route('/')
   });
 
 router.route('/:id')
-  .patch((req, res) => {
+  // .patch((req, res) => {
 
-    let { supervisor, iao, sec_man, sys_admin } = req.body;
-    let id = req.params.id
+  //   let { supervisor, iao, sec_man, sys_admin } = req.body;
+  //   let id = req.params.id
 
-    db.updateTicketStatus(id, { supervisor, iao, sec_man, sys_admin })
-      .then((response) => res.status(200).json(response))
-      .catch((err) => {
-        console.log('Error calling db.updateStatus at endpoint /:id', err)
-        res.status(401)
-      })
-  })
+  //   db.updateTicketStatus(id, { supervisor, iao, sec_man, sys_admin })
+  //     .then((response) => res.status(200).json(response))
+  //     .catch((err) => {
+  //       console.log('Error calling db.updateStatus at endpoint /:id', err)
+  //       res.status(401)
+  //     })
+  // })
 
   .get((req, res) => {
 
@@ -167,7 +167,7 @@ router.route('/update')
   .patch((req, res) => {
 
 
-    let { firstname, lastname, email, systemid, formname, supervisor, iao, sec_man, sys_admin } = req.body
+    let { firstname, lastname, email, systemid, formname, supervisor, iao, sec_man, info_owner } = req.body
     let files = req.files.file;
     let userpath = `${lastname}-${firstname}`
     let ticket_id = 0;
@@ -185,8 +185,8 @@ router.route('/update')
               if(ticket.supervisor) supervisor = true
               if(ticket.iao) iao = true
               if(ticket.sec_man) sec_man = true
-              if(ticket.sys_admin) sys_admin = true
-              db.updateTicketStatus(ticket_id, supervisor, iao, sec_man, sys_admin)
+              if(ticket.info_owner) info_owner = true
+              db.updateTicketStatus(ticket_id, supervisor, iao, sec_man, info_owner)
                 .then(() => res.status(200).json(`Ticket updated!`))
                 .catch((err) => {
                   console.log('Error calling db.updateTicketStatus at endpoint /update', err)

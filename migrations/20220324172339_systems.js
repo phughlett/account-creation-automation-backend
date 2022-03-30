@@ -8,11 +8,11 @@ exports.up = function (knex) {
   table.increments('id').primary();
   table.string("system_name").notNullable();
   table.string("iao_name").notNullable();
-  table.string("iao_email").notNullable();
+  table.string("iao_phonenum").notNullable();
   table.string("sec_man_name").notNullable();
-  table.string("sec_man_email").notNullable();
-  table.string("sys_ad_name").notNullable();
-  table.string("sys_ad_email").notNullable();
+  table.string("sec_man_phonenum").notNullable();
+  table.string("info_owner_name").notNullable();
+  table.string("info_owner_phonenum").notNullable();
 
 })
 }
