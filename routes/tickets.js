@@ -201,9 +201,10 @@ router.route('/update')
     }
   })
 
-router.route('/templates')
+router.route('/templates/2875')
   .get((req, res) => {
-    const file = '../files/templates/2875.pdf';
+
+    const file = './files/templates/2875.pdf';
     res.download(file);
 
   })
