@@ -49,8 +49,7 @@ app.post('/', (req, res) => {
   })
 
 app.get('/', (req, res) => {
-  const file = './files/templates/2875.pdf';
-  res.download(file);
+
 })
 
 

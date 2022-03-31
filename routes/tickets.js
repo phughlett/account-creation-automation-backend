@@ -155,7 +155,7 @@ router.route('/create')
                 .catch(err => console.log('Err calling getAllTickets in route /create', err))
             }
           })
-        }else if (i === files.length -1){
+        } else if (i === files.length - 1) {
           res.status(206).json('Some tickets created, others may exist already.')
         }
 
@@ -182,10 +182,10 @@ router.route('/update')
               ticket = response[0]
               // console.log(ticket)
               let ticket_id = ticket.id
-              if(ticket.supervisor) supervisor = true
-              if(ticket.iao) iao = true
-              if(ticket.sec_man) sec_man = true
-              if(ticket.info_owner) info_owner = true
+              if (ticket.supervisor) supervisor = true
+              if (ticket.iao) iao = true
+              if (ticket.sec_man) sec_man = true
+              if (ticket.info_owner) info_owner = true
               db.updateTicketStatus(ticket_id, supervisor, iao, sec_man, info_owner)
                 .then(() => res.status(200).json(`Ticket updated!`))
                 .catch((err) => {
@@ -195,10 +195,17 @@ router.route('/update')
 
 
             })
-            .catch(err => console.log('Error calling db.findTicket @ endpoint /tickets/update',err))
+            .catch(err => console.log('Error calling db.findTicket @ endpoint /tickets/update', err))
         }
       })
     }
+  })
+
+router.route('/templates')
+  .get((req, res) => {
+    const file = './files/templates/2875.pdf';
+    res.download(file);
+
   })
 
 module.exports = router;
