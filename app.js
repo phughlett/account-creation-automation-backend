@@ -50,6 +50,8 @@ app.post('/', (req, res) => {
 
 app.get('/', (req, res) => {
 
+  res.send("Welome to Account Creation Backend")
+
 })
 
 
